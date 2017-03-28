@@ -1,0 +1,34 @@
+#!/bin/bash 
+
+function echoExample {
+  echo "Call this script like so: build-mda.sh SVN_HOST SVN_USER SVN_PASS RELEASE_VERSION"
+}
+
+if [ -z "$SVN_HOST" ]; then
+  echo "SVN_HOST is either unset or set to a non-empty string."
+  echoExample
+  exit
+fi
+
+if [ -z "$SVN_USER" ]; then
+  echo "SVN_USER is either unset or set to a non-empty string"
+  echoExample
+  exit
+fi
+
+if [ -z "$SVN_PASS" ]; then
+  echo "SVN_PASS is either unset or set to a non-empty string"
+  echoExample
+  exit
+fi
+
+if [ -z "$RELEASE_VERSION" ]; then
+  echo "RELEASE_VERSION is either unset or set to a non-empty string"
+  echoExample
+  exit
+fi
+
+SVN_CHECKOUT_LOCATION="$SVN_HOST/tags/$RELEASE_VERSION"
+
+svn checkout $SVN_CHECKOUT_LOCATION --username $SVN_USER --password $SVN_PASS --non-interactive
+python2.7 /root/cf-mendix-buildpack/bin/mxbuild /root/$RELEASE_VERSION /mxbuild
