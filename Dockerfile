@@ -27,8 +27,9 @@ ENV HOME /root
 # Define working directory.
 WORKDIR /root
 
-# Set build directory
+# Set build and output directory
 VOLUME /tmp
+VOLUME /releases
 
 # Define default command.
 CMD ["./build-mda"]
