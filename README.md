@@ -5,8 +5,8 @@ This container makes it possible to build Mendix applications on any system that
 The following command will create a release package.
 ```
 docker run -i \
-	-e "SVN_USER=user@mendix.com" \
-	-e "SVN_PASS=password" \
+  -e "SVN_USER=user@mendix.com" \
+  -e "SVN_PASS=password" \
   -e "RELEASE_VERSION=RELEASE_VERSION" \
   -e "SVN_HOST=TEAM_SERVER_URL" \
   -v /fully/qualified/path:/releases \
