@@ -19,7 +19,9 @@ RUN \
 
 # Add Mendix build files
 ADD build-mda /root/build-mda
+RUN chmod +x /root/build-mda
 RUN git clone -b master https://github.com/WebFlight/cf-mendix-buildpack.git /root/cf-mendix-buildpack
+
 
 # Set environment variables.
 ENV HOME /root

@@ -33,4 +33,4 @@ SVN_CHECKOUT_LOCATION="$SVN_HOST/tags/$RELEASE_VERSION"
 cd /tmp
 svn checkout -q $SVN_CHECKOUT_LOCATION --username $SVN_USER --password $SVN_PASS --non-interactive
 python2.7 /root/cf-mendix-buildpack/bin/mxbuild /tmp/$RELEASE_VERSION /mxbuild
-mv /tmp/model.mda /releases/
+mv /tmp/model.mda /releases/model-$RELEASE_VERSION.mda
