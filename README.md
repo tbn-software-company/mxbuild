@@ -14,7 +14,7 @@ docker run -i \
   -e "MODEL_VERSION=YOUR_MENDIX_VERSION" \
   -e "MXAPP_NAME=YOUR_MXAPP_NAME" \
   -v /fully/qualified/path:/releases \
-  tbn_mxbuild:beta-3
+  public.ecr.aws/l2c5r0g8/tbn_mxbuild
 ```
 
 Following a list of the arguments:
