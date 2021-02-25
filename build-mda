@@ -30,7 +30,23 @@ fi
 
 SVN_CHECKOUT_LOCATION="$SVN_HOST/tags/$RELEASE_VERSION"
 
+# Do all scripting in /tmp
 cd /tmp
+
+# Prepare MXBuild 
+mkdir mxbuild output
+wget -q https://cdn.mendix.com/runtime/mxbuild-$MODEL_VERSION.tar.gz
+tar -xzf mxbuild-$MODEL_VERSION.tar.gz -C mxbuild
+rm -rf mxbuild-$MODEL_VERSION.tar.gz
+
+# Export Variables
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_EXE=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
+export MXBUILD=/tmp/mxbuild/modeler/mxbuild.exe
+# Checkout SVN
 svn checkout -q $SVN_CHECKOUT_LOCATION --username $SVN_USER --password $SVN_PASS --non-interactive
-python2.7 /root/cf-mendix-buildpack/bin/mxbuild /tmp/$RELEASE_VERSION /mxbuild
-mv /tmp/model.mda /releases/model-$RELEASE_VERSION.mda
+#python3 /root/cf-mendix-buildpack/buildpack/mxbuild.py /tmp/$RELEASE_VERSION /mxbuild
+
+# Build .mda
+mono $MXBUILD --target=package --java-home=$JAVA_HOME --java-exe-path=$JAVA_EXE -o $MXAPP_NAME-$RELEASE_VERSION.mda /tmp/$RELEASE_VERSION/$MXAPP_NAME.mpr
+mv /tmp/$MXAPP_NAME-$RELEASE_VERSION.mda /releases/$MXAPP_NAME-$RELEASE_VERSION.mda
